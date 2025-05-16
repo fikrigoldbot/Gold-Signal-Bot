@@ -6,8 +6,8 @@ import time
 from telegram import Bot
 from datetime import datetime
 
-TELEGRAM_TOKEN = "ضع_توكن_البوت_هنا"
-CHAT_ID = "ضع_chat_id_هنا"
+TELEGRAM_TOKEN = "7578653757:AAGyM99MMy_ffcP7FRLpvw6cL5zMiscACm8"
+CHAT_ID = "6711050109"
 
 def get_gold_signal():
     try:
@@ -15,8 +15,8 @@ def get_gold_signal():
         if df.empty:
             return "لا يمكن تحميل بيانات الذهب حالياً."
         df.dropna(inplace=True)
-        df['EMA20'] = ta.trend.ema_indicator(df['Close'], window=20).ema_indicator()
-        df['EMA50'] = ta.trend.ema_indicator(df['Close'], window=50).ema_indicator()
+        df['EMA20'] = ta.trend.EMAIndicator(df['Close'], window=20).ema_indicator()
+        df['EMA50'] = ta.trend.EMAIndicator(df['Close'], window=50).ema_indicator()
         df['RSI'] = ta.momentum.RSIIndicator(df['Close']).rsi()
         last = df.iloc[-1]
         prev = df.iloc[-2]
@@ -39,8 +39,11 @@ def run_bot():
     signal = get_gold_signal()
     send_telegram_message(signal)
 
-schedule.every(1).hours.do(run_bot)
+schedule.every(60).minutes.do(run_bot)
+
+print("Gold Signal Bot is running...")
 
 while True:
     schedule.run_pending()
     time.sleep(60)
+      
