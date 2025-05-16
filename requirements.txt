@@ -1,5 +1,5 @@
+python-telegram-bot==20.6
 yfinance
 ta
-pandas
-python-telegram-bot==13.15
 schedule
+pandas
